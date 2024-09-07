@@ -1,47 +1,30 @@
 function pesquisar() {
-    // Obtém a seção HTML onde os resultados serão exibidos
-    let section = document.getElementById("resultados-pesquisa");
-
-    let campoPesquisa = document.getElementById("campo-pesquisa").value
-
-    // se campoPesquisa for uma string sem nada
+    let campoPesquisa = document.getElementById("campo-pesquisa").value.toLowerCase();
+    let resultados = document.getElementById("resultados-pesquisa");
+    resultados.innerHTML = "";
+  
     if (!campoPesquisa) {
-        section.innerHTML = "<p>Nada foi encontrado. Você precisa digitar o nome de um atleta ou esporte</p>"
-        return 
+      resultados.innerHTML = "<p>Digite algo para pesquisar.</p>";
+      return;
     }
-
-    campoPesquisa = campoPesquisa.toLowerCase()
-
-    // Inicializa uma string vazia para armazenar os resultados
-    let resultados = "";
-    let titulo = ""; 
-    let descricao = "";
-    let tags = "";
-
-    // Itera sobre cada dado da lista de dados
-    for (let dado of dados) {
-        titulo = dado.titulo.toLowerCase()
-        descricao = dado.descricao.toLowerCase()
-        tags = dado.tags.toLowerCase()
-        // se titulo includes campoPesquisa
-        if (titulo.includes(campoPesquisa) || descricao.includes(campoPesquisa) || tags.includes(campoPesquisa)) {
-            // cria um novo elemento
-            resultados += `
-            <div class="item-resultado">
-                <h2>
-                    <a href="#" target="_blank">${dado.titulo}</a>
-                </h2>
-                <p class="descricao-meta">${dado.descricao}</p>
-                <a href=${dado.link} target="_blank">Mais informações</a>
-            </div>
+  
+    let resultadoEncontrado = false;
+    dados.forEach(dado => {
+      if (dado.titulo.toLowerCase().includes(campoPesquisa) ||
+          dado.descricao.toLowerCase().includes(campoPesquisa)) {
+        resultados.innerHTML += `
+          <div class="item-resultado">
+            <h2><target="_blank">${dado.titulo}</a></h2>
+            <p>${dado.descricao}</p>
+            <a href=${dado.link} target="_blank">Mais informações</a>
+          </div>
+       
         `;
-        }
+        resultadoEncontrado = true;
+      }
+    });
+  
+    if (!resultadoEncontrado) {
+      resultados.innerHTML = "<h2>Nenhum resultado encontrado para sua pesquisa.</h2>";
     }
-
-    if (!resultados) {
-        resultados = "<p>Nada foi encontrado</p>"
-    }
-
-    // Atribui os resultados gerados à seção HTML
-    section.innerHTML = resultados;
-}
+  }
