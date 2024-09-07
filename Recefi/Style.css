@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Chakra Petch", sans-serif;
+    background-image: url('brasil.png');
+    background-size: cover; /* Faz a imagem cobrir toda a tela */
+    background-repeat: no-repeat; /* Evita a repetição da imagem */
+    background-position: center center; /* Centraliza a imagem de fundo */
+    background-attachment: fixed; /* Mantém a imagem fixa mesmo com o scroll */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh; /* Faz com que o corpo cubra pelo menos a altura da tela */
+    padding-top: 20px; /* Espaço no topo da página */
+    
+    
+}
+
+
+h2 {
+    color: white;
+    font-size: 1.3rem;
+    letter-spacing: 0.2rem; /* Espaçamento entre letras */
+    margin: 0.2rem 0;
+}
+
+.container-info {
+    display: flex;
+    flex-direction: column; /* Exibe os pontos turísticos em formato de coluna */
+    gap: 20px; /* Espaço entre os pontos turísticos */
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+    height: 46vh; /* Altura máxima da caixa de resultados */
+    overflow-y: auto; /* Adiciona rolagem vertical se necessário */
+    border-radius: 0.6rem; /* Borda arredondada */
+    overflow: hidden; /* Remove a rolagem */
+    height: auto; /* Permite que o elemento tenha a altura necessária */
+    
+}
+
+.text-container {
+    width: 80%;
+    max-width: 1200px;
+    background: linear-gradient(135deg, rgba(46, 46, 50, 0.5), rgba(46, 46, 50, 0.5));
+    backdrop-filter: blur(2.5px);
+    -webkit-backdrop-filter: blur(2.5px);
+    border-radius: 0.8rem;
+    padding: 1rem;
+    color: white;
+}
+
+.image-panel {
+    text-align: center;
+    margin-bottom: 20px; /* Espaço abaixo da imagem principal */
+}
+
+.image-panel img {
+    max-width: 50%;  /* Faz a imagem ocupar no máximo 100% da largura do container */
+    height: auto;     /* Mantém a proporção da imagem */
+    border-radius: 10px;
+    border: 3px solid white; /* Adiciona uma borda branca ao redor da imagem */
+    
+}
+.text-panel {
+    margin-top: 20px;
+    color: white;
+    
+}
+
+.text-panel h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.text-panel p {
+    font-size: 1.2rem;
+    text-align: justify;
+    line-height: 1.6;
+}
+.tourist-spot {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px; /* Espaço entre a imagem e o texto */
+}
+
+.image-panel-lat {
+    flex-shrink: 0; /* Impede que a imagem diminua de tamanho */
+}
+
+.image-panel-lat img {
+    width: 300px; /* Tamanho da imagem */
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid white; /* Adiciona uma borda branca ao redor da imagem */
+    transition: transform 0.3s ease; /* Adiciona uma transição suave */
+}
+.image-panel-lat img:hover {
+    transform: scale(1.1); /* Aumenta a imagem em 10% ao passar o mouse */
+}
+.infomacaoCont {
+    flex-grow: 1; /* Faz o texto ocupar o restante do espaço disponível */
+    color: white;
+}
+
+.infomacaoCont h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.infomacaoCont p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    text-align: justify;
+}
