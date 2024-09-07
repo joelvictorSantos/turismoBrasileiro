@@ -3,17 +3,19 @@
 
 /* Estiliza o corpo da página */
 body {
-    font-family: "Chakra Petch", sans-serif; /* Define a fonte padrão */
+    font-family: "Chakra Petch", sans-serif;
     background-size: cover;
     background-repeat: no-repeat;
-    display: flex; /* Usa Flexbox para layout */
-    flex-direction: column; /* Alinha os itens na vertical */
-    align-items: center; /* Centraliza os itens horizontalmente */
-    justify-content: center; /* Centraliza os itens verticalmente */
-    height: 100vh; /* Preenche a altura total da viewport */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     margin: 0;
     padding: 0;
-    animation: slide 50s infinite; /* 50 segundos para cada imagem ser exibida por 10 segundos */
+    background-position: center;
+    transition: background-image 2s ease-in-out; /* Suaviza a transição das imagens */
+    animation: slide 50s infinite; /* Animação contínua de 50s */
 }
 
 @keyframes slide {
