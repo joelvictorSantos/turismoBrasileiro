@@ -4,7 +4,8 @@
 /* Estiliza o corpo da página */
 body {
     font-family: "Chakra Petch", sans-serif; /* Define a fonte padrão */
-    background-color: #DDDDDD; /* Cor de fundo da página */
+    background-size: cover;
+    background-repeat: no-repeat;
     display: flex; /* Usa Flexbox para layout */
     flex-direction: column; /* Alinha os itens na vertical */
     align-items: center; /* Centraliza os itens horizontalmente */
@@ -12,16 +13,53 @@ body {
     height: 100vh; /* Preenche a altura total da viewport */
     margin: 0;
     padding: 0;
+    animation: slide 50s infinite; /* 50 segundos para cada imagem ser exibida por 10 segundos */
+}
+
+@keyframes slide {
+    0% { background-image: url('imagem1.png'); }
+    20% { background-image: url('imagem1.png'); }
+    25% { background-image: url('imagem2.png'); }
+    45% { background-image: url('imagem2.png'); }
+    50% { background-image: url('imagem3.png'); }
+    70% { background-image: url('imagem3.png'); }
+    75% { background-image: url('imagem4.png'); }
+    95% { background-image: url('imagem4.png'); }
+    100% { background-image: url('imagem5.png'); }
+}
+.container {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    height: 3.5vh; /* Garante que o contêiner ocupe toda a altura da viewport */
+}
+.text-container {
+
+    background: linear-gradient(135deg, rgba(46, 46, 50, 0.5), rgba(46, 46, 50, 0.5));
+    backdrop-filter: blur(2.5px);
+    -webkit-backdrop-filter: blur(2.5px);
+    border-radius: 0.8rem; /* Borda arredondada */
+    padding: 0.1rem 0.5rem; /* Reduzi o espaçamento interno superior/inferior */
+    margin-bottom: 0.3rem; /* Reduzi o espaçamento abaixo dos itens */
+    color: white; /* Define a cor do texto como branca */
+
 }
 
 /* Estiliza os títulos h1 */
 h1 {
-    font-size: 2.5rem; /* Tamanho da fonte */
-    color: #222831; /* Cor do texto */
+    font-size: 2.2rem; /* Tamanho da fonte */
     text-align: center; /* Alinha o texto ao centro */
     letter-spacing: 0.4rem; /* Espaçamento entre letras */
+    margin: 0.2rem 0; /* Reduzi a margem superior/inferior dos títulos */
 }
 
+h2{
+    font-size: 1.8rem;
+    text-align: center; /* Alinha o texto ao centro */
+    letter-spacing: 0.2rem; /* Espaçamento entre letras */
+    margin: 0.2rem 0; /* Reduzi a margem superior/inferior dos títulos */
+ 
+}
 /* Estiliza as seções da página */
 section {
     display: flex; /* Usa Flexbox para layout */
@@ -35,8 +73,9 @@ section input {
     width: 30rem; /* Largura dos inputs */
     border: none; /* Remove a borda padrão */
     padding: 1rem; /* Espaçamento interno */
+
     border-radius: 1.5rem; /* Borda arredondada */
-    margin-bottom: 1rem; /* Espaçamento abaixo dos inputs */
+    margin-bottom: 0.5rem; /* Espaçamento abaixo dos inputs */
     color: #45474B; /* Cor do texto */
     font-size: 1rem; /* Tamanho da fonte */
     box-sizing: border-box; /* Inclui padding e border na largura total */
@@ -45,17 +84,18 @@ section input {
 /* Estiliza os botões dentro das seções */
 section button {
     padding: 0.8rem 1.2rem; /* Espaçamento interno do botão */
+    margin-bottom: 0.5rem; /* Reduzi o espaçamento abaixo dos inputs */
     border: none; /* Remove a borda padrão */
     border-radius: 1.5rem; /* Borda arredondada */
-    background-color: #30475E; /* Cor de fundo do botão */
+    background-color: #193881; /* Cor de fundo do botão */
     color: #F5F7F8; /* Cor do texto do botão */
-    font-size: 1rem; /* Tamanho da fonte */
+    font-size: 1rem; /* Tamanho da fonurl(DadosTurismo/infoDados/vero-peso.png) url(DadosTurismo/infoDados/teatro.png) url(DadosTurismo/infoDados/Style.css) url(DadosTurismo/infoDados/map-para.png) url(DadosTurismo/infoDados/mangal.png) url(DadosTurismo/infoDados/Idexe.html) url(DadosTurismo/infoDados/docas.png) url(DadosTurismo/infoDados/DadosTuris.js) url(DadosTurismo/infoDados/brasil.png) url(DadosTurismo/infoDados/AppTuris.js)te */
     cursor: pointer; /* Muda o cursor para indicar que é clicável */
 }
 
 /* Estiliza a caixa de resultados da pesquisa */
 .resultados-pesquisa {
-    width: 60rem; /* Largura máxima da caixa de resultados */
+    width: 50rem; /* Largura máxima da caixa de resultados */
     height: 46vh; /* Altura máxima da caixa de resultados */
     overflow-y: auto; /* Adiciona rolagem vertical se necessário */
     margin-top: 1rem; /* Espaçamento acima da caixa de resultados */
@@ -97,8 +137,12 @@ section button {
 
 /* Estiliza o rodapé da página */
 footer {
-    background-color: #F5F7F8; /* Cor de fundo do rodapé */
-    color: #45474B; /* Cor do texto */
+    
+    background: linear-gradient(135deg, rgba(46, 46, 50, 0.5), rgba(46, 46, 50, 0.5));
+    backdrop-filter: blur(2.5px);
+    -webkit-backdrop-filter: blur(2.5px);
+    font-weight: bold;
+    color: white; /* Cor do texto */
     text-align: center; /* Alinha o texto ao centro */
     padding: 0; /* Espaçamento interno */
     width: 100%; /* Largura total da página */
