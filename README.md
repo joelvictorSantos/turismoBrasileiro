@@ -1,5 +1,7 @@
 <h1>Turismo-Br</h1>
 
+![image](https://github.com/user-attachments/assets/66026503-57f3-4e83-8866-e419031f57b2)
+
 Uma aplicação web simples e intuitiva que ajuda você a descobrir os principais pontos turísticos do Brasil. Digite o nome da cidade que deseja explorar e tenha acesso a uma lista de locais recomendados para visitação, com fotos, descrições e links para mais informações.
 
 <h2>📚 Descrição</h2>
@@ -16,51 +18,43 @@ Recife
 
 Salvador
 
-Solicitação de reservas por meio de formulários.
-
-Visualização de dados na seção "Minhas Reservas".
-
-Simulação de um backend utilizando o json-server para o armazenamento de dados.
+Para estas cidades, você será redirecionado para uma página web própria criada especialmente para cada uma. Para as demais localidades, a aplicação direcionará você para páginas externas confiáveis na internet.
 
 <h2>⚙️ Como Funciona</h2>
 
-A aplicação utiliza o npm como gerenciador de pacotes. Para iniciar o projeto, digite no prompt de comando:
+Siga as etapas abaixo para usar a aplicação:
 
-npm run dev
+Pesquise: Insira o nome da cidade no campo de pesquisa.
+  
+Descubra: A aplicação exibirá uma lista com os principais pontos turísticos baseados em nossa base de dados ou redirecionará para páginas externas confiáveis.
 
-Caso queira ativar o sistema de cadastro, login e envio do formulário para solicitar uma reserva, execute também no prompt de comando:
-
-npm run backend
-
-Isso iniciará um servidor local que armazenará os dados das reservas e permitirá o acesso aos mesmos no perfil do usuário.
-Acesse a aplicação no navegador e, na seção "Minhas Reservas", visualize suas solicitações de forma organizada.
+Explore: Clique em "Mais informações" para acessar páginas exclusivas das cidades mencionadas ou fontes externas para outras localidades.
 
 <h2>🚀 Tecnologias</h2>
 
-Este projeto foi desenvolvido utilizando:
+As tecnologias utilizadas no desenvolvimento do projeto incluem:
 
-React.js
+HTML: Estruturação do conteúdo da página.
 
-Npm e Yarn
+CSS: Estilização para uma interface bonita e organizada.
 
-Simulação de backend com json-server
+JavaScript: Lógica que alimenta a pesquisa e exibição dos resultados.
 
 <h2>🛠️ Como Acessar o Site</h2>
 
 Você pode acessar o site clicando no link abaixo, hospedado no Vercel:
 
-https://frotasbr-aluguel-carros.vercel.app/
+https://turismo-brasileiro.vercel.app/
 
-<h2>💡 Possíveis Melhorias</h2>
+<h2>💡 Observações</h2>
 
-A aplicação ainda pode ser aprimorada em diversos aspectos, como:
+Algumas informações importantes sobre o projeto:
 
-Responsividade: Adaptação para telas de diferentes dispositivos, garantindo uma melhor experiência para usuários móveis.
+Banco de dados: As informações sobre os pontos turísticos estão no arquivo dados.js, onde você pode editar e adicionar dados facilmente.
 
-Backend mais robusto: Implementação de um servidor backend completo para melhor gerenciamento dos dados.
+Design customizável: O visual do site é personalizável via style.css
 
-Integração de funcionalidades extras: Como filtros avançados e histórico detalhado de reservas.
-Essas melhorias serão consideradas em atualizações futuras.
+Funcionalidades futuras: Estamos trabalhando em novas funcionalidades, como filtros e mapas interativos.
 
 <h2>📜 Licença</h2>
 
