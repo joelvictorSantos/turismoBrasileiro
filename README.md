@@ -1,64 +1,71 @@
-Com base na sua atualização, aqui está uma versão ajustada do texto para refletir o redirecionamento das cidades com páginas próprias:
+<h1>Turismo-Br</h1>
 
----
+Uma aplicação web simples e intuitiva que ajuda você a descobrir os principais pontos turísticos do Brasil. Digite o nome da cidade que deseja explorar e tenha acesso a uma lista de locais recomendados para visitação, com fotos, descrições e links para mais informações.
 
-## **Descubra os encantos do Brasil com apenas um clique! Imersão Dev com Google Gemini** 🇧🇷
+<h2>📚 Descrição</h2>
 
-### **O que é este projeto?**
+Além de fornecer informações gerais sobre várias localidades, o Turismo-Br possui páginas exclusivas e personalizadas para as seguintes cidades:
 
-Esta é uma aplicação web simples e intuitiva que ajuda você a descobrir os principais pontos turísticos do Brasil. Digite o nome da cidade que deseja explorar e tenha acesso a uma lista de locais recomendados para visitação, com fotos, descrições e links para mais informações.
+Belém
 
-Além disso, se você pesquisar uma das cidades específicas para as quais desenvolvemos páginas exclusivas (Belém, Fortaleza, Manaus, Recife ou Salvador), você será redirecionado para uma página web própria, totalmente personalizada, criada especialmente para cada uma dessas cidades. Para as demais localidades, a aplicação te direcionará para páginas externas na internet.
+Fortaleza
 
-### **Como funciona?**
+Manaus
 
-1. **Pesquise:** Insira o nome da cidade no campo de pesquisa.
-2. **Descubra:** Nossa aplicação exibirá uma lista com os principais pontos turísticos baseados em nossa base de dados ou redirecionará você para páginas externas confiáveis.
-3. **Explore:** Ao clicar em "Mais informações", você será redirecionado para uma página web específica para cada cidade (caso seja Belém, Fortaleza, Manaus, Recife ou Salvador) ou para páginas de referência externas para as outras cidades.
+Recife
 
-### **Tecnologias utilizadas:**
+Salvador
 
-* **HTML:** Estruturação do conteúdo da página.
-* **CSS:** Estilização para uma interface bonita e organizada.
-* **JavaScript:** Lógica que alimenta a pesquisa e exibição dos resultados.
+Solicitação de reservas por meio de formulários.
 
-### **Como executar o projeto:**
+Visualização de dados na seção "Minhas Reservas".
 
-1. **Clone o repositório:**
-   ```bash
-   git clone https://seu-repositorio.git
-   ```
-2. **Abra o projeto:**
-   Abra o arquivo `index.html` em seu navegador preferido.
+Simulação de um backend utilizando o json-server para o armazenamento de dados.
 
-### **Contribua com o projeto!**
+<h2>⚙️ Como Funciona</h2>
 
-Quer contribuir com melhorias ou adicionar novas cidades com páginas próprias? Envie suas sugestões através de um pull request!
+A aplicação utiliza o npm como gerenciador de pacotes. Para iniciar o projeto, digite no prompt de comando:
 
-### **Observações:**
+npm run dev
 
-* **Banco de dados:** As informações sobre os pontos turísticos estão no arquivo `dados.js`, onde você pode editar e adicionar dados facilmente.
-* **Design customizável:** O visual do site é personalizável via `style.css`.
-* **Funcionalidades futuras:** Estamos trabalhando em novas funcionalidades, como filtros e mapas interativos.
+Caso queira ativar o sistema de cadastro, login e envio do formulário para solicitar uma reserva, execute também no prompt de comando:
 
-### **Cidades com páginas próprias:**
+npm run backend
 
-- **Belém**
-- **Fortaleza**
-- **Manaus**
-- **Recife**
-- **Salvador**
+Isso iniciará um servidor local que armazenará os dados das reservas e permitirá o acesso aos mesmos no perfil do usuário.
+Acesse a aplicação no navegador e, na seção "Minhas Reservas", visualize suas solicitações de forma organizada.
 
-Para essas cidades, você será redirecionado para uma página exclusiva desenvolvida por nós. Para as demais cidades, utilizamos fontes confiáveis da internet.
+<h2>🚀 Tecnologias</h2>
 
----
+Este projeto foi desenvolvido utilizando:
 
-**#Brasil #Turismo #WebDev #JavaScript #HTML #CSS**
+React.js
 
-### **Dúvidas ou sugestões?**
+Npm e Yarn
 
-Se tiver dúvidas, abra uma issue no GitHub ou envie um e-mail. Estamos sempre abertos a novas ideias!
+Simulação de backend com json-server
 
----
+<h2>🛠️ Como Acessar o Site</h2>
 
-Essa versão reflete o comportamento diferenciado para as cidades com páginas próprias.
+Você pode acessar o site clicando no link abaixo, hospedado no Vercel:
+
+https://frotasbr-aluguel-carros.vercel.app/
+
+<h2>💡 Possíveis Melhorias</h2>
+
+A aplicação ainda pode ser aprimorada em diversos aspectos, como:
+
+Responsividade: Adaptação para telas de diferentes dispositivos, garantindo uma melhor experiência para usuários móveis.
+
+Backend mais robusto: Implementação de um servidor backend completo para melhor gerenciamento dos dados.
+
+Integração de funcionalidades extras: Como filtros avançados e histórico detalhado de reservas.
+Essas melhorias serão consideradas em atualizações futuras.
+
+<h2>📜 Licença</h2>
+
+Este projeto está licenciado sob os termos da licença MIT.
+
+Todas as marcas, imagens e nomes mencionados pertencem aos seus respectivos proprietários.
+O projeto foi desenvolvido apenas para fins educacionais, sem nenhum objetivo comercial.
+Não há intenção de infringir qualquer direito autoral ou de propriedade intelectual.
