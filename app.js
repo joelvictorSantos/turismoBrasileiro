@@ -1,6 +1,19 @@
 const formPesquisa = document.getElementById("form-pesquisa");
 const campoPesquisa = document.getElementById("campo-pesquisa");
 const resultados = document.getElementById("resultados-pesquisa");
+const backgroundImages = [...document.querySelectorAll(".background-slider img")];
+let activeBackground = 0;
+
+function changeBackground() {
+  backgroundImages[activeBackground].classList.remove("is-active");
+  activeBackground = (activeBackground + 1) % backgroundImages.length;
+  backgroundImages[activeBackground].classList.add("is-active");
+}
+
+if (backgroundImages.length) {
+  backgroundImages[activeBackground].classList.add("is-active");
+  window.setInterval(changeBackground, 5000);
+}
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>'"]/g, character => ({
