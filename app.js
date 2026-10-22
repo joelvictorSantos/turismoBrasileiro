@@ -1,30 +1,39 @@
+const formPesquisa = document.getElementById("form-pesquisa");
+const campoPesquisa = document.getElementById("campo-pesquisa");
+const resultados = document.getElementById("resultados-pesquisa");
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>'"]/g, character => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;"
+  }[character]));
+}
+
 function pesquisar() {
-    let campoPesquisa = document.getElementById("campo-pesquisa").value.toLowerCase();
-    let resultados = document.getElementById("resultados-pesquisa");
-    resultados.innerHTML = "";
-  
-    if (!campoPesquisa) {
-      resultados.innerHTML = "<p>Digite algo para pesquisar.</p>";
-      return;
-    }
-  
-    let resultadoEncontrado = false;
-    dados.forEach(dado => {
-      if (dado.titulo.toLowerCase().includes(campoPesquisa) ||
-          dado.descricao.toLowerCase().includes(campoPesquisa)) {
-        resultados.innerHTML += `
-          <div class="item-resultado">
-            <h2><target="_blank">${dado.titulo}</a></h2>
-            <p>${dado.descricao}</p>
-            <a href=${dado.link} target="_blank">Mais informações</a>
-          </div>
-       
-        `;
-        resultadoEncontrado = true;
-      }
-    });
-  
-    if (!resultadoEncontrado) {
-      resultados.innerHTML = "<h2>Nenhum resultado encontrado para sua pesquisa.</h2>";
-    }
+  const termo = campoPesquisa.value.trim().toLowerCase();
+  resultados.innerHTML = "";
+  if (!termo) {
+    resultados.innerHTML = '<p class="empty-result">Digite uma cidade ou destino para começar sua descoberta.</p>';
+    return;
   }
+
+  const encontrados = dados.filter(dado =>
+    dado.titulo.toLowerCase().includes(termo) || dado.descricao.toLowerCase().includes(termo)
+  );
+
+  if (!encontrados.length) {
+    resultados.innerHTML = `<p class="empty-result">Nenhum destino encontrado para “${escapeHtml(termo)}”. Tente outra cidade.</p>`;
+    return;
+  }
+
+  resultados.innerHTML = encontrados.map(dado => {
+    const link = escapeHtml(dado.link);
+    return `<article class="item-resultado">
+      <h2>${escapeHtml(dado.titulo)}</h2>
+      <p>${escapeHtml(dado.descricao)}</p>
+      <a href="${link}" target="_blank" rel="noopener noreferrer">Conhecer este destino →</a>
+    </article>`;
+  }).join("");
+  document.getElementById("destinos").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+formPesquisa.addEventListener("submit", event => { event.preventDefault(); pesquisar(); });
