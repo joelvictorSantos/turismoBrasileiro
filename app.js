@@ -33,7 +33,6 @@ function pesquisar() {
       <a href="${link}" target="_blank" rel="noopener noreferrer">Conhecer este destino →</a>
     </article>`;
   }).join("");
-  document.getElementById("destinos").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 formPesquisa.addEventListener("submit", event => { event.preventDefault(); pesquisar(); });
