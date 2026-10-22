@@ -23,11 +23,6 @@ function iniciarTransicaoDeFundo() {
   }, 9000);
 }
 
-function extrairCoordenadas(valor) {
-  const correspondencia = valor?.match(/Point\((-?[0-9.]+) (-?[0-9.]+)\)/);
-  return correspondencia ? { longitude: correspondencia[1], latitude: correspondencia[2] } : null;
-}
-
 async function carregarDetalhes() {
   if (!tituloDestino) {
     detalhesConteudo.innerHTML = '<p class="empty-result">Destino não informado. Volte para a busca e escolha um resultado.</p>';
@@ -51,13 +46,9 @@ async function carregarDetalhes() {
       .map(paragrafo => paragrafo.textContent.trim())
       .filter(paragrafo => paragrafo.length > 40);
     const textoCompleto = (paragrafos.length ? paragrafos : [pagina.extract]).slice(0, 3);
-    const coordenadas = extrairCoordenadas(coordenadasDestino);
     const localizacao = cidadeDestino || (coordenadasDestino
       ? `Coordenadas: ${coordenadasDestino}`
       : "Consulte a fonte original para confirmar a localização deste destino.");
-    const linkMapa = coordenadas
-      ? `https://www.openstreetmap.org/?mlat=${coordenadas.latitude}&mlon=${coordenadas.longitude}#map=16/${coordenadas.latitude}/${coordenadas.longitude}`
-      : null;
 
     document.title = `${pagina.title || tituloDestino} | Turismo Brasileiro`;
     detalhesConteudo.innerHTML = `
@@ -70,7 +61,6 @@ async function carregarDetalhes() {
       <div class="details-location">
         <strong>Onde fica</strong>
         <p>${escapeHtml(localizacao)}</p>
-        ${linkMapa ? `<a href="${escapeHtml(linkMapa)}" target="_blank" rel="noopener noreferrer">Abrir localização no mapa →</a>` : ""}
       </div>
       <div class="details-actions">
         <a class="back-button" href="index.html">← Fazer outra pesquisa</a>
