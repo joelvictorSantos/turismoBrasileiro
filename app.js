@@ -45,6 +45,7 @@ async function buscarNaWikidata(termo) {
           mwapi:language "pt".
         ?item wikibase:apiOutputItem mwapi:item.
       }
+      ?item wdt:P17 wd:Q155.
       ?article schema:about ?item;
         schema:isPartOf <https://pt.wikipedia.org/>.
       OPTIONAL { ?item wdt:P625 ?coord. }
