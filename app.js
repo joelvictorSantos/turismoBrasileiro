@@ -37,7 +37,7 @@ function resumirTexto(texto, limite = 190) {
 async function buscarNaWikidata(termo) {
   const termoSparql = termo.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
   const query = `
-    SELECT DISTINCT ?item ?itemLabel ?article WHERE {
+    SELECT DISTINCT ?item ?itemLabel ?article ?coord ?city ?cityLabel WHERE {
       SERVICE wikibase:mwapi {
         bd:serviceParam wikibase:endpoint "www.wikidata.org";
           wikibase:api "EntitySearch";
@@ -47,6 +47,12 @@ async function buscarNaWikidata(termo) {
       }
       ?article schema:about ?item;
         schema:isPartOf <https://pt.wikipedia.org/>.
+      OPTIONAL { ?item wdt:P625 ?coord. }
+      OPTIONAL {
+        ?item wdt:P131 ?city.
+        ?city rdfs:label ?cityLabel.
+        FILTER(LANG(?cityLabel) = "pt")
+      }
       SERVICE wikibase:label { bd:serviceParam wikibase:language "pt". }
     }
     LIMIT 5
@@ -60,7 +66,9 @@ async function buscarNaWikidata(termo) {
   const payload = await response.json();
   return payload.results.bindings.map(binding => ({
     titulo: binding.itemLabel.value,
-    artigo: binding.article.value
+    artigo: binding.article.value,
+    cidade: binding.cityLabel?.value,
+    coordenadas: binding.coord?.value
   }));
 }
 
@@ -85,7 +93,9 @@ async function buscarResumoNaWikipedia(candidato) {
     titulo: pagina.title || candidato.titulo,
     descricao: pagina.extract,
     imagem: pagina.thumbnail?.source,
-    link: pagina.content_urls?.desktop?.page || candidato.artigo
+    link: pagina.content_urls?.desktop?.page || candidato.artigo,
+    cidade: candidato.cidade,
+    coordenadas: candidato.coordenadas
   };
 }
 
@@ -120,7 +130,7 @@ async function pesquisar() {
       ${resultado.imagem ? `<img class="result-image" src="${escapeHtml(resultado.imagem)}" alt="">` : ""}
       <h2>${escapeHtml(resultado.titulo)}</h2>
       <p>${escapeHtml(resumirTexto(resultado.descricao))}</p>
-      <a href="detalhes.html?titulo=${encodeURIComponent(resultado.titulo)}">Ler conteúdo completo →</a>
+      <a href="detalhes.html?titulo=${encodeURIComponent(resultado.titulo)}&cidade=${encodeURIComponent(resultado.cidade || "")}&coordenadas=${encodeURIComponent(resultado.coordenadas || "")}">Ler conteúdo completo →</a>
     </article>
   `);
 
