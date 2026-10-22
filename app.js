@@ -12,7 +12,7 @@ function changeBackground() {
 
 if (backgroundImages.length) {
   backgroundImages[activeBackground].classList.add("is-active");
-  window.setInterval(changeBackground, 5000);
+  window.setInterval(changeBackground, 9000);
 }
 
 function escapeHtml(value) {
