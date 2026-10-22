@@ -45,7 +45,7 @@ async function carregarDetalhes() {
     const paragrafos = [...documento.querySelectorAll("p")]
       .map(paragrafo => paragrafo.textContent.trim())
       .filter(paragrafo => paragrafo.length > 40);
-    const textoCompleto = (paragrafos.length ? paragrafos : [pagina.extract]).slice(0, 3);
+    const textoCompleto = (paragrafos.length ? paragrafos : [pagina.extract]).slice(0, 2);
     const localizacao = cidadeDestino || (coordenadasDestino
       ? `Coordenadas: ${coordenadasDestino}`
       : "Consulte a fonte original para confirmar a localização deste destino.");
