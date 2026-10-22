@@ -2,20 +2,6 @@ const formPesquisa = document.getElementById("form-pesquisa");
 const campoPesquisa = document.getElementById("campo-pesquisa");
 const resultados = document.getElementById("resultados-pesquisa");
 const backgroundImages = [...document.querySelectorAll(".background-slider img")];
-let pontosTuristicos = [];
-const pontosTuristicosCarregados = fetch("pontos-turisticos.json")
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`Não foi possível carregar pontos-turisticos.json (${response.status})`);
-    }
-    return response.json();
-  })
-  .then(pontos => {
-    pontosTuristicos = pontos;
-  })
-  .catch(error => {
-    console.error("Erro ao carregar o catálogo de pontos turísticos:", error);
-  });
 let activeBackground = 0;
 
 function changeBackground() {
@@ -103,7 +89,6 @@ async function buscarNasApis(termo) {
 }
 
 async function pesquisar() {
-  await pontosTuristicosCarregados;
   const termoOriginal = campoPesquisa.value.trim();
   const termo = normalizarTermo(termoOriginal);
   resultados.innerHTML = "";
@@ -112,41 +97,13 @@ async function pesquisar() {
     return;
   }
 
-  const destinosEncontrados = dados.filter(dado =>
-    normalizarTermo(dado.titulo).includes(termo) || normalizarTermo(dado.descricao).includes(termo)
-  );
-  const pontosEncontrados = pontosTuristicos.filter(ponto =>
-    normalizarTermo(`${ponto.titulo} ${ponto.cidade} ${ponto.descricao}`).includes(termo)
-  );
-
+  resultados.innerHTML = '<p class="empty-result">Consultando Wikidata e Wikipedia...</p>';
   let resultadosRemotos = [];
-  if (!destinosEncontrados.length && !pontosEncontrados.length) {
-    resultados.innerHTML = '<p class="empty-result">Consultando Wikidata e Wikipedia...</p>';
-    try {
-      resultadosRemotos = await buscarNasApis(termoOriginal);
-    } catch (error) {
-      console.error("Erro ao consultar Wikidata/Wikipedia:", error);
-    }
+  try {
+    resultadosRemotos = await buscarNasApis(termoOriginal);
+  } catch (error) {
+    console.error("Erro ao consultar Wikidata/Wikipedia:", error);
   }
-
-  const cardsDeDestinos = destinosEncontrados.map(dado => {
-    const link = escapeHtml(dado.link);
-    return `<article class="item-resultado">
-      <h2>${escapeHtml(dado.titulo)}</h2>
-      <p>${escapeHtml(dado.descricao)}</p>
-      <a href="${link}" target="_blank" rel="noopener noreferrer">Conhecer este destino →</a>
-    </article>`;
-  });
-
-  const cardsDePontos = pontosEncontrados.map(ponto => {
-    const link = escapeHtml(ponto.link);
-    return `<article class="item-resultado">
-      <span class="result-type">${escapeHtml(ponto.cidade)} · ponto turístico</span>
-      <h2>${escapeHtml(ponto.titulo)}</h2>
-      <p>${escapeHtml(ponto.descricao)}</p>
-      <a href="${link}" target="_blank" rel="noopener noreferrer">Ver fonte e planejar visita →</a>
-    </article>`;
-  });
 
   const cardsRemotos = resultadosRemotos.map(resultado => `
     <article class="item-resultado">
@@ -158,9 +115,8 @@ async function pesquisar() {
     </article>
   `);
 
-  const todosOsCards = [...cardsDeDestinos, ...cardsDePontos, ...cardsRemotos];
-  resultados.innerHTML = todosOsCards.length
-    ? todosOsCards.join("")
+  resultados.innerHTML = cardsRemotos.length
+    ? cardsRemotos.join("")
     : `<p class="empty-result">Nenhum destino encontrado para “${escapeHtml(termoOriginal)}”. Tente outra cidade ou atração.</p>`;
 }
 
