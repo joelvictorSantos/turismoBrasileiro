@@ -25,6 +25,15 @@ function normalizarTermo(value) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
+function resumirTexto(texto, limite = 190) {
+  if (texto.length <= limite) {
+    return texto;
+  }
+
+  const trecho = texto.slice(0, limite).replace(/\s+\S*$/, "");
+  return `${trecho}...`;
+}
+
 async function buscarNaWikidata(termo) {
   const termoSparql = termo.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
   const query = `
@@ -110,8 +119,8 @@ async function pesquisar() {
       <span class="result-type">Wikidata · Wikipedia</span>
       ${resultado.imagem ? `<img class="result-image" src="${escapeHtml(resultado.imagem)}" alt="">` : ""}
       <h2>${escapeHtml(resultado.titulo)}</h2>
-      <p>${escapeHtml(resultado.descricao)}</p>
-      <a href="${escapeHtml(resultado.link)}" target="_blank" rel="noopener noreferrer">Ler fonte completa →</a>
+      <p>${escapeHtml(resumirTexto(resultado.descricao))}</p>
+      <a href="detalhes.html?titulo=${encodeURIComponent(resultado.titulo)}">Ler conteúdo completo →</a>
     </article>
   `);
 
