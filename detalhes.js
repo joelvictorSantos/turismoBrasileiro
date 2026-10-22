@@ -42,7 +42,7 @@ async function carregarDetalhes() {
     const paragrafos = [...documento.querySelectorAll("p")]
       .map(paragrafo => paragrafo.textContent.trim())
       .filter(paragrafo => paragrafo.length > 40);
-    const textoCompleto = paragrafos.length ? paragrafos : [pagina.extract];
+    const textoCompleto = (paragrafos.length ? paragrafos : [pagina.extract]).slice(0, 3);
 
     document.title = `${pagina.title || tituloDestino} | Turismo Brasileiro`;
     detalhesConteudo.innerHTML = `
