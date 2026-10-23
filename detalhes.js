@@ -23,6 +23,31 @@ function iniciarTransicaoDeFundo() {
   }, 9000);
 }
 
+function extrairCoordenadas(valor) {
+  const correspondencia = valor?.match(/Point\((-?[0-9.]+) (-?[0-9.]+)\)/);
+  return correspondencia
+    ? { longitude: correspondencia[1], latitude: correspondencia[2] }
+    : null;
+}
+
+async function buscarEndereco(coordenadas) {
+  if (!coordenadas) return null;
+
+  const parametros = new URLSearchParams({
+    lat: coordenadas.latitude,
+    lon: coordenadas.longitude,
+    format: "jsonv2",
+    "accept-language": "pt-BR"
+  });
+  const response = await fetch(`https://nominatim.openstreetmap.org/reverse?${parametros}`);
+  if (!response.ok) {
+    throw new Error(`OpenStreetMap retornou ${response.status}`);
+  }
+
+  const resultado = await response.json();
+  return resultado.display_name || null;
+}
+
 async function carregarDetalhes() {
   if (!tituloDestino) {
     detalhesConteudo.innerHTML = '<p class="empty-result">Destino não informado. Volte para a busca e escolha um resultado.</p>';
@@ -46,9 +71,16 @@ async function carregarDetalhes() {
       .map(paragrafo => paragrafo.textContent.trim())
       .filter(paragrafo => paragrafo.length > 40);
     const textoCompleto = (paragrafos.length ? paragrafos : [pagina.extract]).slice(0, 2);
-    const localizacao = cidadeDestino || (coordenadasDestino
-      ? `Coordenadas: ${coordenadasDestino}`
-      : "Consulte a fonte original para confirmar a localização deste destino.");
+    const coordenadas = extrairCoordenadas(coordenadasDestino);
+    let localizacao = cidadeDestino || "Consulte a fonte original para confirmar a localização deste destino.";
+    let enderecoOpenStreetMap = null;
+
+    try {
+      enderecoOpenStreetMap = await buscarEndereco(coordenadas);
+      localizacao = enderecoOpenStreetMap || localizacao;
+    } catch (error) {
+      console.warn("Não foi possível consultar o endereço no OpenStreetMap:", error);
+    }
 
     document.title = `${pagina.title || tituloDestino} | Turismo Brasileiro`;
     detalhesConteudo.innerHTML = `
@@ -61,6 +93,7 @@ async function carregarDetalhes() {
       <div class="details-location">
         <strong>Onde fica</strong>
         <p>${escapeHtml(localizacao)}</p>
+        ${enderecoOpenStreetMap ? '<small>Endereço consultado no <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>.</small>' : ""}
       </div>
       <div class="details-actions">
         <a class="back-button" href="index.html">← Fazer outra pesquisa</a>
