@@ -30,6 +30,41 @@ function extrairCoordenadas(valor) {
     : null;
 }
 
+function criarUrlDoMapa(coordenadas) {
+  if (!coordenadas) return null;
+
+  const margem = 0.015;
+  const longitude = Number(coordenadas.longitude);
+  const latitude = Number(coordenadas.latitude);
+  if (!Number.isFinite(longitude) || !Number.isFinite(latitude)) return null;
+
+  const bbox = [
+    longitude - margem,
+    latitude - margem,
+    longitude + margem,
+    latitude + margem
+  ].join("%2C");
+
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${latitude}%2C${longitude}`;
+}
+
+function renderizarMapa(urlDoMapa, titulo) {
+  if (!urlDoMapa) return "";
+
+  return `
+    <div class="map-container">
+      <div class="map-heading">
+        <strong>Localização no mapa</strong>
+        <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">OpenStreetMap ↗</a>
+      </div>
+      <iframe
+        src="${urlDoMapa}"
+        title="Mapa da localização de ${escapeHtml(titulo)}">
+      </iframe>
+    </div>
+  `;
+}
+
 async function buscarEndereco(coordenadas) {
   if (!coordenadas) return null;
 
@@ -54,6 +89,14 @@ async function carregarDetalhes() {
     return;
   }
 
+  const coordenadas = extrairCoordenadas(coordenadasDestino);
+  const urlDoMapa = criarUrlDoMapa(coordenadas);
+  detalhesConteudo.innerHTML = `
+    <p class="eyebrow accent">Conheça melhor</p>
+    ${renderizarMapa(urlDoMapa, tituloDestino)}
+    <p class="empty-result">Carregando informações do destino...</p>
+  `;
+
   try {
     const slug = encodeURIComponent(tituloDestino);
     const [resumoResponse, artigoResponse] = await Promise.all([
@@ -71,7 +114,6 @@ async function carregarDetalhes() {
       .map(paragrafo => paragrafo.textContent.trim())
       .filter(paragrafo => paragrafo.length > 40);
     const textoCompleto = (paragrafos.length ? paragrafos : [pagina.extract]).slice(0, 2);
-    const coordenadas = extrairCoordenadas(coordenadasDestino);
     let localizacao = cidadeDestino || "Consulte a fonte original para confirmar a localização deste destino.";
     let enderecoOpenStreetMap = null;
 
@@ -95,6 +137,7 @@ async function carregarDetalhes() {
         <p>${escapeHtml(localizacao)}</p>
         ${enderecoOpenStreetMap ? '<small>Endereço consultado no <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>.</small>' : ""}
       </div>
+      ${renderizarMapa(urlDoMapa, pagina.title || tituloDestino)}
       <div class="details-actions">
         <a class="back-button" href="index.html">← Fazer outra pesquisa</a>
         ${pagina.content_urls?.desktop?.page ? `<a class="source-link" href="${escapeHtml(pagina.content_urls.desktop.page)}" target="_blank" rel="noopener noreferrer">Consultar fonte original →</a>` : ""}
