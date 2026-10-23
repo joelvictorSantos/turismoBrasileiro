@@ -46,6 +46,14 @@ async function buscarNaWikidata(termo) {
         ?item wikibase:apiOutputItem mwapi:item.
       }
       ?item wdt:P17 wd:Q155.
+      VALUES ?categoria {
+        wd:Q515
+        wd:Q486972
+        wd:Q570116
+        wd:Q811979
+        wd:Q618123
+      }
+      ?item wdt:P31/wdt:P279* ?categoria.
       ?article schema:about ?item;
         schema:isPartOf <https://pt.wikipedia.org/>.
       OPTIONAL { ?item wdt:P625 ?coord. }
