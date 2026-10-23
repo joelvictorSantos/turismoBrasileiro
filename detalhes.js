@@ -145,7 +145,14 @@ async function carregarDetalhes() {
     `;
   } catch (error) {
     console.error("Erro ao carregar detalhes do destino:", error);
-    detalhesConteudo.innerHTML = '<p class="empty-result">Não foi possível carregar este destino agora. Tente novamente em alguns instantes.</p>';
+    detalhesConteudo.innerHTML = `
+      <div class="empty-result error-result" role="alert">
+        <strong>Não foi possível carregar este destino.</strong>
+        <span>Sinto muito. A fonte de informações pode estar temporariamente indisponível. Tente novamente em alguns instantes.</span>
+        <a class="back-button" href="${escapeHtml(window.location.href)}">Tentar novamente</a>
+        <a class="source-link" href="pesquisa.html">Voltar para a busca</a>
+      </div>
+    `;
   }
 }
 

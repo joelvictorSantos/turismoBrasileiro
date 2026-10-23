@@ -131,6 +131,13 @@ async function pesquisar() {
     resultadosRemotos = await buscarNasApis(termoOriginal);
   } catch (error) {
     console.error("Erro ao consultar Wikidata/Wikipedia:", error);
+    resultados.innerHTML = `
+      <div class="empty-result error-result" role="alert">
+        <strong>Não foi possível carregar os resultados.</strong>
+        <span>Sinto muito. As fontes de informação podem estar temporariamente indisponíveis. Tente novamente em alguns instantes.</span>
+      </div>
+    `;
+    return;
   }
 
   const cardsRemotos = resultadosRemotos.map(resultado => `
