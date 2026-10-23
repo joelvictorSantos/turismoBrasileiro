@@ -1,37 +1,71 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Turismo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Descubra destinos, culturas e experiências que fazem do Brasil um país para explorar.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>Turismo Brasileiro | Descubra o Brasil</title>
 </head>
-
 <body>
-    <header>
-        <div class="container"></div>
-        <div class="text-container">
-        <h1>Pesquise Pontos Turísticos</h1>
-        <h2>Cidades Brasileiras</h2>
-    <main>
-        <section>
-            <input type="text" placeholder="Digite o nome da cidade que deseja saber" id="campo-pesquisa">
-            <button onclick="pesquisar()">Pesquisar</button>
-    </header>
-</div>
-</div>
-        </section>
-        <section class="resultados-pesquisa" id="resultados-pesquisa">
-           
-        </section>
-    </main>
-    <footer>
-        <p>2024 - Cidades Brasileiras. Todos os direitos reservados</p>
-    </footer>
-    <script src="dados.js"></script>
-    <script src="app.js"></script>
+  <div class="background-slider" aria-hidden="true">
+    <img src="imagem1.png" alt="">
+    <img src="imagem2.png" alt="">
+    <img src="imagem3.png" alt="">
+    <img src="imagem4.png" alt="">
+    <img src="imagem5.png" alt="">
+  </div>
+  <div class="background-overlay" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Turismo Brasileiro - início">
+      <span class="brand-mark">✦</span>
+      <span>Turismo <strong>Brasileiro</strong></span>
+    </a>
+    <nav aria-label="Navegação principal">
+      <a href="pesquisa.html">Pesquisar</a>
+      <a href="#experiencias">Experiências</a>
+      <a href="#sobre">Sobre o projeto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <p class="eyebrow">Viaje por histórias, sabores e paisagens</p>
+        <h1 id="hero-title">O Brasil que você ainda vai <em>descobrir</em>.</h1>
+        <p class="hero-text">Encontre inspiração para sua próxima viagem e conheça a diversidade que transforma cada canto do país em uma experiência única.</p>
+        <a class="hero-search-button" href="pesquisa.html">Pesquisar destinos <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="hero-badge" aria-label="Informação sobre o projeto">
+        <span>15</span>
+        <small>destinos para<br>começar a explorar</small>
+      </div>
+    </section>
+
+    <section class="value-section" id="experiencias" aria-labelledby="value-title">
+      <div>
+        <p class="eyebrow accent">Mais que um destino</p>
+        <h2 id="value-title">Viajar pelo Brasil é<br><em>viver muitas histórias.</em></h2>
+      </div>
+      <p>Do encontro com a floresta à energia das grandes cidades, o turismo brasileiro aproxima pessoas, valoriza culturas locais e revela paisagens que ficam na memória.</p>
+      <div class="value-grid">
+        <article><span>01</span><h3>Natureza exuberante</h3><p>Florestas, praias, rios e montanhas para contemplar em todos os ritmos.</p></article>
+        <article><span>02</span><h3>Cultura viva</h3><p>Sabores, festas, arte e tradições que dão identidade a cada região.</p></article>
+        <article><span>03</span><h3>Histórias locais</h3><p>Destinos que conectam o passado, o presente e novas formas de viajar.</p></article>
+      </div>
+    </section>
+
+    <section class="about-section" id="sobre" aria-labelledby="about-title">
+      <p class="eyebrow">Um convite para explorar</p>
+      <h2 id="about-title">Valorizar o turismo é<br><em>valorizar o Brasil.</em></h2>
+      <p>Este projeto nasceu para tornar mais fácil descobrir cidades brasileiras e incentivar escolhas que fortalecem comunidades, preservam patrimônios e celebram a nossa diversidade.</p>
+    </section>
+  </main>
+
+  <footer><p>Turismo Brasileiro <span>•</span> Feito para quem acredita que toda viagem começa com uma descoberta.</p></footer>
+  <script src="app.js"></script>
 </body>
-
 </html>
-
