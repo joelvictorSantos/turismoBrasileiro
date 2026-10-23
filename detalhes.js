@@ -139,7 +139,7 @@ async function carregarDetalhes() {
       </div>
       ${renderizarMapa(urlDoMapa, pagina.title || tituloDestino)}
       <div class="details-actions">
-        <a class="back-button" href="index.html">← Fazer outra pesquisa</a>
+        <a class="back-button" href="pesquisa.html">← Fazer outra pesquisa</a>
         ${pagina.content_urls?.desktop?.page ? `<a class="source-link" href="${escapeHtml(pagina.content_urls.desktop.page)}" target="_blank" rel="noopener noreferrer">Consultar fonte original →</a>` : ""}
       </div>
     `;

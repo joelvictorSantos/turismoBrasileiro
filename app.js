@@ -140,4 +140,6 @@ async function pesquisar() {
     : `<p class="empty-result">Nenhum destino encontrado para “${escapeHtml(termoOriginal)}”. Tente outra cidade ou atração.</p>`;
 }
 
-formPesquisa.addEventListener("submit", event => { event.preventDefault(); pesquisar(); });
+if (formPesquisa) {
+  formPesquisa.addEventListener("submit", event => { event.preventDefault(); pesquisar(); });
+}

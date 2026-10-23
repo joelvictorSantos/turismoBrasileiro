@@ -25,7 +25,7 @@
       <span>Turismo <strong>Brasileiro</strong></span>
     </a>
     <nav aria-label="Navegação principal">
-      <a href="#destinos">Destinos</a>
+      <a href="pesquisa.html">Pesquisar</a>
       <a href="#experiencias">Experiências</a>
       <a href="#sobre">Sobre o projeto</a>
     </nav>
@@ -37,12 +37,7 @@
         <p class="eyebrow">Viaje por histórias, sabores e paisagens</p>
         <h1 id="hero-title">O Brasil que você ainda vai <em>descobrir</em>.</h1>
         <p class="hero-text">Encontre inspiração para sua próxima viagem e conheça a diversidade que transforma cada canto do país em uma experiência única.</p>
-        <form class="search-box" id="form-pesquisa" role="search">
-          <label class="sr-only" for="campo-pesquisa">Pesquise por uma cidade ou destino</label>
-          <input type="search" placeholder="Qual destino brasileiro você quer conhecer?" id="campo-pesquisa" autocomplete="off">
-          <button type="submit">Explorar <span aria-hidden="true">→</span></button>
-        </form>
-        <p class="search-hint">Experimente buscar por Belém, Salvador, Manaus ou Rio de Janeiro.</p>
+        <a class="hero-search-button" href="pesquisa.html">Pesquisar destinos <span aria-hidden="true">→</span></a>
       </div>
       <div class="hero-badge" aria-label="Informação sobre o projeto">
         <span>15</span>
@@ -63,11 +58,6 @@
       </div>
     </section>
 
-    <section class="results-section" id="destinos" aria-labelledby="results-title">
-      <div class="section-heading"><div><p class="eyebrow accent">Inspire-se</p><h2 id="results-title">Destinos em destaque</h2></div><p class="section-note">Pesquise acima para encontrar um lugar especial.</p></div>
-      <div class="resultados-pesquisa" id="resultados-pesquisa" aria-live="polite"></div>
-    </section>
-
     <section class="about-section" id="sobre" aria-labelledby="about-title">
       <p class="eyebrow">Um convite para explorar</p>
       <h2 id="about-title">Valorizar o turismo é<br><em>valorizar o Brasil.</em></h2>
@@ -76,6 +66,5 @@
   </main>
 
   <footer><p>Turismo Brasileiro <span>•</span> Feito para quem acredita que toda viagem começa com uma descoberta.</p></footer>
-  <script src="app.js"></script>
 </body>
 </html>
