@@ -1,0 +1,160 @@
+const detalhesConteudo = document.getElementById("detalhes-conteudo");
+const parametros = new URLSearchParams(window.location.search);
+const tituloDestino = parametros.get("titulo");
+const cidadeDestino = parametros.get("cidade");
+const coordenadasDestino = parametros.get("coordenadas");
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>'"]/g, character => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;"
+  }[character]));
+}
+
+function iniciarTransicaoDeFundo() {
+  const imagens = [...document.querySelectorAll(".background-slider img")];
+  let atual = 0;
+  if (!imagens.length) return;
+
+  imagens[atual].classList.add("is-active");
+  window.setInterval(() => {
+    imagens[atual].classList.remove("is-active");
+    atual = (atual + 1) % imagens.length;
+    imagens[atual].classList.add("is-active");
+  }, 9000);
+}
+
+function extrairCoordenadas(valor) {
+  const correspondencia = valor?.match(/Point\((-?[0-9.]+) (-?[0-9.]+)\)/);
+  return correspondencia
+    ? { longitude: correspondencia[1], latitude: correspondencia[2] }
+    : null;
+}
+
+function criarUrlDoMapa(coordenadas) {
+  if (!coordenadas) return null;
+
+  const margem = 0.015;
+  const longitude = Number(coordenadas.longitude);
+  const latitude = Number(coordenadas.latitude);
+  if (!Number.isFinite(longitude) || !Number.isFinite(latitude)) return null;
+
+  const bbox = [
+    longitude - margem,
+    latitude - margem,
+    longitude + margem,
+    latitude + margem
+  ].join("%2C");
+
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${latitude}%2C${longitude}`;
+}
+
+function renderizarMapa(urlDoMapa, titulo) {
+  if (!urlDoMapa) return "";
+
+  return `
+    <div class="map-container">
+      <div class="map-heading">
+        <strong>Localização no mapa</strong>
+        <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">OpenStreetMap ↗</a>
+      </div>
+      <iframe
+        src="${urlDoMapa}"
+        title="Mapa da localização de ${escapeHtml(titulo)}">
+      </iframe>
+    </div>
+  `;
+}
+
+async function buscarEndereco(coordenadas) {
+  if (!coordenadas) return null;
+
+  const parametros = new URLSearchParams({
+    lat: coordenadas.latitude,
+    lon: coordenadas.longitude,
+    format: "jsonv2",
+    "accept-language": "pt-BR"
+  });
+  const response = await fetch(`https://nominatim.openstreetmap.org/reverse?${parametros}`);
+  if (!response.ok) {
+    throw new Error(`OpenStreetMap retornou ${response.status}`);
+  }
+
+  const resultado = await response.json();
+  return resultado.display_name || null;
+}
+
+async function carregarDetalhes() {
+  if (!tituloDestino) {
+    detalhesConteudo.innerHTML = '<p class="empty-result">Destino não informado. Volte para a busca e escolha um resultado.</p>';
+    return;
+  }
+
+  const coordenadas = extrairCoordenadas(coordenadasDestino);
+  const urlDoMapa = criarUrlDoMapa(coordenadas);
+  detalhesConteudo.innerHTML = `
+    <p class="eyebrow accent">Conheça melhor</p>
+    ${renderizarMapa(urlDoMapa, tituloDestino)}
+    <p class="empty-result">Carregando informações do destino...</p>
+  `;
+
+  try {
+    const slug = encodeURIComponent(tituloDestino);
+    const [resumoResponse, artigoResponse] = await Promise.all([
+      fetch(`https://pt.wikipedia.org/api/rest_v1/page/summary/${slug}`),
+      fetch(`https://pt.wikipedia.org/api/rest_v1/page/html/${slug}`)
+    ]);
+    if (!resumoResponse.ok || !artigoResponse.ok) {
+      throw new Error(`Wikipedia retornou resumo ${resumoResponse.status} e artigo ${artigoResponse.status}`);
+    }
+
+    const pagina = await resumoResponse.json();
+    const htmlDoArtigo = await artigoResponse.text();
+    const documento = new DOMParser().parseFromString(htmlDoArtigo, "text/html");
+    const paragrafos = [...documento.querySelectorAll("p")]
+      .map(paragrafo => paragrafo.textContent.trim())
+      .filter(paragrafo => paragrafo.length > 40);
+    const textoCompleto = (paragrafos.length ? paragrafos : [pagina.extract]).slice(0, 2);
+    let localizacao = cidadeDestino || "Consulte a fonte original para confirmar a localização deste destino.";
+    let enderecoOpenStreetMap = null;
+
+    try {
+      enderecoOpenStreetMap = await buscarEndereco(coordenadas);
+      localizacao = enderecoOpenStreetMap || localizacao;
+    } catch (error) {
+      console.warn("Não foi possível consultar o endereço no OpenStreetMap:", error);
+    }
+
+    document.title = `${pagina.title || tituloDestino} | Turismo Brasileiro`;
+    detalhesConteudo.innerHTML = `
+      <p class="eyebrow accent">Informações do destino</p>
+      ${pagina.thumbnail?.source ? `<img class="details-image" src="${escapeHtml(pagina.thumbnail.source)}" alt="">` : ""}
+      <h1>${escapeHtml(pagina.title || tituloDestino)}</h1>
+      <div class="details-description">
+        ${textoCompleto.map(paragrafo => `<p>${escapeHtml(paragrafo)}</p>`).join("")}
+      </div>
+      <div class="details-location">
+        <strong>Onde fica</strong>
+        <p>${escapeHtml(localizacao)}</p>
+        ${enderecoOpenStreetMap ? '<small>Endereço consultado no <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>.</small>' : ""}
+      </div>
+      ${renderizarMapa(urlDoMapa, pagina.title || tituloDestino)}
+      <div class="details-actions">
+        <a class="back-button" href="pesquisa.html">← Fazer outra pesquisa</a>
+        ${pagina.content_urls?.desktop?.page ? `<a class="source-link" href="${escapeHtml(pagina.content_urls.desktop.page)}" target="_blank" rel="noopener noreferrer">Consultar fonte original →</a>` : ""}
+      </div>
+    `;
+  } catch (error) {
+    console.error("Erro ao carregar detalhes do destino:", error);
+    detalhesConteudo.innerHTML = `
+      <div class="empty-result error-result" role="alert">
+        <strong>Não foi possível carregar este destino.</strong>
+        <span>Sinto muito. A fonte de informações pode estar temporariamente indisponível. Tente novamente em alguns instantes.</span>
+        <a class="back-button" href="${escapeHtml(window.location.href)}">Tentar novamente</a>
+        <a class="source-link" href="pesquisa.html">Voltar para a busca</a>
+      </div>
+    `;
+  }
+}
+
+iniciarTransicaoDeFundo();
+carregarDetalhes();

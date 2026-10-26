@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pesquise cidades e pontos turísticos brasileiros.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>Pesquisar destinos | Turismo Brasileiro</title>
+</head>
+<body class="search-page">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Turismo Brasileiro - início">
+      <span class="brand-mark">✦</span>
+      <span>Turismo <strong>Brasileiro</strong></span>
+    </a>
+    <a class="back-link" href="index.html">← Voltar para o início</a>
+  </header>
+
+  <main class="search-main">
+    <section class="search-intro" aria-labelledby="search-title">
+      <p class="eyebrow">Sua central de descobertas</p>
+      <h1 id="search-title">Pesquise e analise destinos brasileiros.</h1>
+      <p>Consulte cidades e pontos turísticos com informações da Wikidata, Wikipedia e OpenStreetMap.</p>
+      <form class="search-box" id="form-pesquisa" role="search">
+        <label class="sr-only" for="campo-pesquisa">Pesquise por uma cidade ou destino</label>
+        <input type="search" placeholder="Ex.: Museu do Amanhã, Belém ou Salvador" id="campo-pesquisa" autocomplete="off">
+        <button type="submit">Pesquisar <span aria-hidden="true">→</span></button>
+      </form>
+    </section>
+
+    <section class="results-section search-results" id="destinos" aria-labelledby="results-title">
+      <div class="section-heading">
+        <div><p class="eyebrow accent">Resultados da análise</p><h2 id="results-title">Encontre seu próximo destino</h2></div>
+        <p class="section-note">A busca considera apenas cidades e pontos turísticos no Brasil.</p>
+      </div>
+      <div class="resultados-pesquisa" id="resultados-pesquisa" aria-live="polite">
+        <p class="empty-result">Digite uma cidade ou atração para começar.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer><p>Turismo Brasileiro <span>•</span> Dados consultados em fontes abertas.</p></footer>
+  <script src="app.js"></script>
+</body>
+</html>
